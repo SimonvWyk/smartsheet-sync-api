@@ -8,7 +8,7 @@ import re
 # -------- CONFIG --------
 CLIENT_ID = "ttkwuylxtl9ei9zkgsq"
 CLIENT_SECRET = "iib4i43syy6bnpds3hn"
-REDIRECT_URI = "http://localhost:8000/oauth/callback"
+REDIRECT_URI = "https://smartsheet-sync.onrender.com/oauth/callback"
 
 SHEET_ID = 7900013460934532
 UNIQUE_KEY = "id"
@@ -22,9 +22,20 @@ PG_CONFIG = {
 }
 TABLE_NAME = "draftprojects"
 
-ACCESS_TOKEN = None  # will be set after login
+ACCESS_TOKEN = None  # This will be set after user logs in via /install
 
 app = FastAPI(title="Smartsheet Sync App")
+
+# -------- HOMEPAGE --------
+@app.get("/")
+def home():
+    return {
+        "message": "✅ Smartsheet Sync App is running",
+        "status": "ok",
+        "docs": "/docs",
+        "install": "/install",
+        "sync": "/sync"
+    }
 
 # -------- HELPERS --------
 def clean_numeric(value):
